@@ -51,13 +51,29 @@ public class Ennemi : MonoBehaviour
 
 
     }
-
-    private void OnCollisionEnter(Collision collision)
+    public void GetDommage(int dommage)
     {
-        print("touche");
+        hpEnnemi -= dommage;
+
+        //Si les points de vie sont inférieurs à 1, la cible est detruite.
         if (hpEnnemi < 1)
         {
-            animator.SetBool("dying", true);
+            CreationEnnemi.Instance.Mort(gameObject);
         }
+
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "joueur")
+        {
+            GetDommage(2);
+            Joueur.Instance.hp_joueur -= 10;
+        }
+        else if (collision.gameObject.tag == "munition")
+        {
+            GetDommage(10);
+           
+        }
+
     }
 }
