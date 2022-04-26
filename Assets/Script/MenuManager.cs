@@ -21,4 +21,16 @@ public class MenuManager : MonoBehaviour
     {
         SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
     }
+    public void ChangerSceneMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+    }
+    public void ChangerSceneGameOver()
+    {
+        SceneManager.LoadScene("GameOver", LoadSceneMode.Single);
+    }
+    public void ChangerSceneVictory()
+    {
+        SceneManager.LoadScene("Victory", LoadSceneMode.Single);
+    }
 }
