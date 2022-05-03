@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+// inspiré de mon code de jeux 3d https://github.com/Cours-Alexandre-Ouellet/jeu-1-jeuneprince
 public class CreationEnnemi : MonoBehaviour
 {
     public static CreationEnnemi Instance { get; private set; }
@@ -13,9 +16,8 @@ public class CreationEnnemi : MonoBehaviour
     public int posX;
     public int posZ;
     //nombre d'ennemis
-    private int nombreEnnemi= 3;
-    //animation ennemi 
-    Animator animator;
+    private int nombreEnnemi= 6;
+
 
     private void Awake()
     {
@@ -32,8 +34,6 @@ public class CreationEnnemi : MonoBehaviour
     void Start()
     {
         ennemis = new List<GameObject>();
-        //Animation normale
-        animator = GetComponent<Animator>();
         CreerEnnemis();
     }
 
@@ -54,7 +54,7 @@ public class CreationEnnemi : MonoBehaviour
     public void Mort(GameObject ennemi)
     {
         ennemis.Remove(ennemi);
-        animator.SetBool("dying", true);
+            
         Destroy(ennemi);
     }
 
