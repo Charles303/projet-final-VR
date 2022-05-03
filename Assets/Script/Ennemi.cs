@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
+// fortement inspiré de mon code de jeux 3d https://github.com/Cours-Alexandre-Ouellet/jeu-1-jeuneprince
 public class Ennemi : MonoBehaviour
 {
     Animator animator;
-    float hpEnnemi = 20;
-    public float vitesse;
+    float hpEnnemi = 50;
+    public float vitesse = 2f;
+    public AudioClip audioTir;
+    private AudioSource source;
 
     void Start()
     {
         //Animation normale
         animator = GetComponent<Animator>();
+        source = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -27,7 +30,6 @@ public class Ennemi : MonoBehaviour
         // Mettre les regards de mes ennemis en face du joueur.
         Vector3 lookVector = Joueur.Instance.transform.position - transform.position;
         lookVector.y = transform.position.y;
-        
 
         // Toujours regarder le joueur
         Quaternion rot = Quaternion.LookRotation(lookVector);
@@ -49,16 +51,18 @@ public class Ennemi : MonoBehaviour
             animator.SetBool("walking", true);
         }
 
-
     }
     public void GetDommage(int dommage)
     {
         hpEnnemi -= dommage;
+        source.PlayOneShot(audioTir);
 
         //Si les points de vie sont inférieurs à 1, la cible est detruite.
         if (hpEnnemi < 1)
         {
+            source.PlayOneShot(audioTir);
             CreationEnnemi.Instance.Mort(gameObject);
+          
         }
 
     }
@@ -71,8 +75,7 @@ public class Ennemi : MonoBehaviour
         }
         else if (collision.gameObject.tag == "munition")
         {
-            GetDommage(10);
-           
+            GetDommage(10);           
         }
 
     }

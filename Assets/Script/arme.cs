@@ -48,7 +48,6 @@ public class arme : MonoBehaviour
             balles.GetComponent<Rigidbody>().velocity = vitesse * origine.forward;
             source.PlayOneShot(audioTir);
            
-        }
-            
+        }         
     }
 }
