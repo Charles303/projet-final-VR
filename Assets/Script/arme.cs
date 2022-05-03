@@ -28,6 +28,9 @@ public class arme : MonoBehaviour
     // Update is called once per frame
      void Update()
     {
+        /**
+         * Code utilisé du projet 1 en Jeux3D pour tirer une munition avec un offset - Charles Lavoie
+         */
         Vector3 offsetArme = origine.transform.forward * 0.2f;
         Vector3 positionDepart = origine.transform.position + origine.transform.forward + offsetArme;
         if (tirerButton.action.triggered)

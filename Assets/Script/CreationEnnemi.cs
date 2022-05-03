@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CreationEnnemi : MonoBehaviour
 {
@@ -56,6 +57,17 @@ public class CreationEnnemi : MonoBehaviour
         ennemis.Remove(ennemi);
         animator.SetBool("dying", true);
         Destroy(ennemi);
+        if (ennemis.Count == 0)
+        {
+            print("Il ne reste plus d'ennemis");
+            Victoire();
+        }
+    }
+    public void Victoire()
+    {
+        print("Début du Boss");
+        //Game Over
+        SceneManager.LoadScene("SceneBoss", LoadSceneMode.Single);
     }
 
     // Update is called once per frame

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using System;
 
 public class Joueur : MonoBehaviour
 {
@@ -26,11 +28,20 @@ public class Joueur : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(hp_joueur);
+        if (hp_joueur <= 0)
+        {
+            Mourir();
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         hp_joueur -= 5;
+    }
+    public void Mourir()
+    {
+        print("GameOver");
+        //Game Over
+        SceneManager.LoadScene("GameOver", LoadSceneMode.Single);
     }
 }
