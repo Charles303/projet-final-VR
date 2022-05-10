@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Ennemi : MonoBehaviour
 {
     Animator animator;
-    float hpEnnemi = 50;
+    float hpEnnemi = 80;
     public float vitesse = 2f;
     public AudioClip audioTir;
     private AudioSource source;
@@ -75,7 +75,8 @@ public class Ennemi : MonoBehaviour
         }
         else if (collision.gameObject.tag == "munition")
         {
-            GetDommage(10);           
+            GetDommage(10);
+            GetComponent<Rigidbody>().velocity = new Vector3(0,0,0);
         }
 
     }

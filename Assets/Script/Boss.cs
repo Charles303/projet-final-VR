@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class Boss : MonoBehaviour
 {
     Animator animator;
-    float hpBoss = 50;
+    float hpBoss = 750;
     public float vitesse;
     bool aAttaque = false;   //Le joueur s'est fait attaqué récemment
     int boucleTouche = 0;
@@ -39,7 +39,9 @@ public class Boss : MonoBehaviour
         float dist = Vector3.Distance(Joueur.Instance.transform.position, transform.position);
         if (hpBoss <= 0)
         {
-            Victoire();
+            VictoireFinale();
+            print("Boss mort");
+
         }
         else if (dist <= minDist)
         {
@@ -65,12 +67,8 @@ public class Boss : MonoBehaviour
     public void GetDommage(int dommage)
     {
         hpBoss -= dommage;
-
-        //Si les points de vie sont inférieurs à 1, la cible est detruite.
-        if (hpBoss < 1)
-        {
-            CreationEnnemi.Instance.Mort(gameObject);
-        }
+        GetComponent<Rigidbody>().velocity = new Vector3(0,0,0);
+        vitesse = vitesse + 0.1f;
 
     }
     private void OnCollisionEnter(Collision collision)
@@ -84,7 +82,7 @@ public class Boss : MonoBehaviour
             GetDommage(10);
         }
     }
-    public void Victoire()
+    public void VictoireFinale()
     {
         print("Victoire");
         //Game Over

@@ -7,7 +7,7 @@ using System;
 public class Joueur : MonoBehaviour
 {
     public static Joueur Instance { get; private set; }
-    public float hp_joueur = 50;
+    public float hp_joueur = 150;
     private void Awake()
     {
         if (Instance == null)
