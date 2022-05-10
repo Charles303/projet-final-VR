@@ -10,6 +10,9 @@ public class Boss : MonoBehaviour
     Animator animator;
     float hpBoss = 50;
     public float vitesse;
+    bool aAttaque = false;   //Le joueur s'est fait attaqué récemment
+    int boucleTouche = 0;
+    bool isInvincible;
 
     void Start()
     {
@@ -46,6 +49,7 @@ public class Boss : MonoBehaviour
             // Active l'animation
             animator.SetBool("attack", true);
             animator.SetBool("walk", false);
+            LoseHealth();
         }
         else if (dist > minDist)
         {
@@ -55,6 +59,7 @@ public class Boss : MonoBehaviour
             //Desactive l'animation
             animator.SetBool("attack", false);
             animator.SetBool("walk", true);
+            boucleTouche = 0;
         }
     }
     public void GetDommage(int dommage)
@@ -72,14 +77,11 @@ public class Boss : MonoBehaviour
     {
         if (collision.gameObject.tag == "joueur")
         {
-            print("test");
             GetDommage(2);
-            Joueur.Instance.hp_joueur -= 10;
         }
         else if (collision.gameObject.tag == "munition")
         {
             GetDommage(10);
-           
         }
     }
     public void Victoire()
@@ -87,5 +89,23 @@ public class Boss : MonoBehaviour
         print("Victoire");
         //Game Over
         SceneManager.LoadScene("Victory", LoadSceneMode.Single);
+    }
+    private IEnumerator BecomeTemporarilyInvincible()
+    {
+        Debug.Log("Player turned invincible!");
+        isInvincible = true;
+
+        yield return new WaitForSeconds(1);
+
+        isInvincible = false;
+        Debug.Log("Player is no longer invincible!");
+    }
+    public void LoseHealth()
+    {
+        if (isInvincible) return;
+
+        Joueur.Instance.hp_joueur -= 10;
+
+        StartCoroutine(BecomeTemporarilyInvincible());
     }
 }
