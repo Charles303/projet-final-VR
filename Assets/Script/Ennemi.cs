@@ -11,6 +11,7 @@ public class Ennemi : MonoBehaviour
     public float vitesse = 2f;
     public AudioClip audioTir;
     private AudioSource source;
+    bool isInvincible;
 
     void Start()
     {
@@ -43,6 +44,7 @@ public class Ennemi : MonoBehaviour
             // Active l'animation
             animator.SetBool("attack", true);
             animator.SetBool("walking", false);
+            LoseHealth();
         }
         else
         {
@@ -68,16 +70,35 @@ public class Ennemi : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
+        /*
         if (collision.gameObject.tag == "joueur")
         {
             GetDommage(2);
             Joueur.Instance.hp_joueur -= 10;
-        }
-        else if (collision.gameObject.tag == "munition")
+        }*/
+        if (collision.gameObject.tag == "munition")
         {
             GetDommage(10);
             GetComponent<Rigidbody>().velocity = new Vector3(0,0,0);
         }
 
+    }
+    private IEnumerator BecomeTemporarilyInvincible()
+    {
+        Debug.Log("Player turned invincible!");
+        isInvincible = true;
+
+        yield return new WaitForSeconds(1);
+
+        isInvincible = false;
+        Debug.Log("Player is no longer invincible!");
+    }
+    public void LoseHealth()
+    {
+        if (isInvincible) return;
+
+        Joueur.Instance.hp_joueur -= 10;
+
+        StartCoroutine(BecomeTemporarilyInvincible());
     }
 }
