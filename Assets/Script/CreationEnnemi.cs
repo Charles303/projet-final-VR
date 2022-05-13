@@ -17,7 +17,7 @@ public class CreationEnnemi : MonoBehaviour
     public int posX;
     public int posZ;
     //nombre d'ennemis
-    private int nombreEnnemi= 6;
+    private int nombreEnnemi= 10;
 
 
     private void Awake()

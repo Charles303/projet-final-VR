@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class Boss : MonoBehaviour
 {
     Animator animator;
-    float hpBoss = 750;
+    float hpBoss = 600;
     public float vitesse;
     bool aAttaque = false;   //Le joueur s'est fait attaqué récemment
     int boucleTouche = 0;
@@ -102,7 +102,7 @@ public class Boss : MonoBehaviour
     {
         if (isInvincible) return;
 
-        Joueur.Instance.hp_joueur -= 10;
+        Joueur.Instance.hp_joueur -= 20;
 
         StartCoroutine(BecomeTemporarilyInvincible());
     }
